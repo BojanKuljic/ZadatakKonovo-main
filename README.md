@@ -14,3 +14,15 @@ Primer moje putanje ($env:Path += ";C:\Users\bojan.kuljic\AppData\Roaming\Python
 
 Pokretanje Back dela sa komandom:
 uvicorn main:app --reload
+
+
+FRONTEND
+
+Pozicionirati se u Frontend folder
+pokrenuti instalaciju paketa:
+
+npm install
+npm install react-router-dom axios
+
+Pokretanje
+npm run dev
