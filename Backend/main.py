@@ -20,4 +20,4 @@ app.add_middleware(
 )
 
 # Uključivanje ruta za proizvode
-app.include_router(product_router, prefix="/api")
+app.include_router(product_router)

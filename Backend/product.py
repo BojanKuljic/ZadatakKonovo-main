@@ -1,4 +1,7 @@
 from fastapi import APIRouter, HTTPException
+from fastapi.responses import JSONResponse
+from fastapi import Request
+
 from auth import get_jwt_token
 import httpx
 import re
@@ -6,6 +9,22 @@ import re
 router = APIRouter()
 
 EXTERNAL_API_BASE = "https://zadatak.konovo.rs"
+
+#Login POST metoda
+@router.post("/login")
+async def login_proxy(request: Request):
+    credentials = await request.json()
+    async with httpx.AsyncClient() as client:
+        response = await client.post(
+            "https://zadatak.konovo.rs/login",
+            json=credentials
+        )
+
+    if response.status_code == 200:
+        return response.json()  # ili JSONResponse(content=response.json())
+    else:
+        raise HTTPException(status_code=401, detail="Login failed")
+
 
 # Metoda za zamenu stringa "brzina" sa "performanse" case-insensitive 
 def process_product(product):
