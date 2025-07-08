@@ -7,10 +7,9 @@ router = APIRouter()
 
 EXTERNAL_API_BASE = "https://zadatak.konovo.rs"
 
-## Metoda za zamenu reci "brzina" za Case-insensitive "Performanse"
-
+# Metoda za zamenu stringa "brzina" sa "performanse" case-insensitive 
 def process_product(product):
-    # Zamena "brzina" sa "performanse"
+    
     if "description" in product and product["description"]:
         pattern = re.compile(r"brzina", re.IGNORECASE)
         product["description"] = pattern.sub("performanse", product["description"])
@@ -50,7 +49,7 @@ async def get_monitors():
     return monitors
 
 
-##Dohvatanje svih proizvoda (RADI)
+# Dohvatanje svih proizvoda (GET/Products)
 @router.get("/products")
 async def get_products(category: str = "", search: str = ""):
     token = await get_jwt_token()
@@ -68,14 +67,13 @@ async def get_products(category: str = "", search: str = ""):
     if category:
         processed = [p for p in processed if str(p.get("categoryName", "")).lower() == category.lower()]
 
-
     if search:
         processed = [p for p in processed if search.lower() in p.get("naziv","").lower()]
 
     return processed
 
 
-##Pristup pojedinačnom proizvodu (RADI):
+# Dohvatanje pojedinačnih proizvoda po ID (sif_product):
 @router.get("/products/{product_id}")
 async def get_product_by_id(product_id: int):
     token = await get_jwt_token()
