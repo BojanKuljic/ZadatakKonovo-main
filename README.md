@@ -23,6 +23,8 @@ pokrenuti instalaciju paketa:
 
 npm install
 npm install react-router-dom axios
+npm install react-toastify
+
 
 Pokretanje
 npm run dev
