@@ -71,6 +71,15 @@ const Products = () => {
     setExpandedProductId(productId === expandedProductId ? null : productId);
   };
 
+  //funkcija za citi ispis Description
+  const sanitizeDescription = (desc) => {
+  return desc
+    ?.replace(/<br\s*\/?>(\s*)?/gi, " ")   // uklanja <br> i zamenjuje sa razmakom
+    .replace(/<[^>]+>/g, "")               // uklanja sve ostale HTML tagove (npr. <b>, <i>)
+    .replace(/-\s*/g, "")                  // uklanja crtu na početku opisa
+    .trim();                               // uklanja praznine
+};
+
   return (
     <div className="products-page">
       <header className="products-header">
@@ -178,9 +187,7 @@ const Products = () => {
                   <p>
                     <strong>Stanje:</strong> {product.stock}
                   </p>
-                  <p>
-                    <strong>Opis:</strong> {product.description}
-                  </p>
+                 <p><strong>Opis:</strong> {sanitizeDescription(product.description)}</p>
                   <p>
                     <strong>Brend:</strong> {product.brandName}
                   </p>
